@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.dedio.russianroulette.views.roulette.RouletteViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/roulette_root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+        <ImageView
+            android:id="@+id/roulette_bullet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintCircle="@id/roulette_root"
+            app:layout_constraintCircleRadius="@{viewModel.state.radius}"
+            app:layout_constraintCircleAngle="@{viewModel.state.angle}"
+            tools:layout_constraintCircleRadius="150dp"
+            tools:layout_constraintCircleAngle="90"
+            android:src="@drawable/bullet"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>
