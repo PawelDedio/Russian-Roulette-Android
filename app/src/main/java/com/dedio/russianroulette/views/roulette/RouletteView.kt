@@ -4,6 +4,8 @@ import android.content.Context
 import android.support.constraint.ConstraintLayout
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
 import android.view.ViewGroup
 import com.dedio.russianroulette.R
 import com.dedio.russianroulette.databinding.ViewRouletteBinding
@@ -32,6 +34,7 @@ class RouletteView : ConstraintLayout {
         viewModel = RouletteViewModel()
         binding.viewModel = viewModel
         post({
+            binding.rouletteBullet.visibility = View.VISIBLE
             viewModel.initPosition(this, binding.rouletteBullet)
         })
     }

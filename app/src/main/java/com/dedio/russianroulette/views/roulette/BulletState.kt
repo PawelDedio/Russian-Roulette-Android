@@ -14,13 +14,13 @@ data class BulletState(var _radius: Int, var _angle: Float) : BaseObservable() {
         @Bindable get() = _radius
         set(value) {
             _radius = value
-            notifyPropertyChanged(BR._all)
+            notifyPropertyChanged(BR.radius)
         }
 
     var angle: Float
         @Bindable get() = _angle
         set(value) {
             _angle = value
-            notifyPropertyChanged(BR._all)
+            notifyPropertyChanged(BR.angle)
         }
 }
