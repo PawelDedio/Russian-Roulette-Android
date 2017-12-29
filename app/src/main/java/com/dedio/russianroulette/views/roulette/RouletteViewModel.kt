@@ -1,10 +1,8 @@
 package com.dedio.russianroulette.views.roulette
 
-import android.support.animation.DynamicAnimation
 import android.support.animation.FlingAnimation
 import android.support.animation.FloatValueHolder
 import android.util.Log
-import android.util.TimeUtils
 import android.view.MotionEvent
 import android.view.MotionEvent.*
 import android.view.View
