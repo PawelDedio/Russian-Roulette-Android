@@ -33,9 +33,9 @@ class RouletteViewModel {
 
 
     fun initPosition(view: RouletteView, imageView: ImageView) {
+        view.getLocationInWindow(locationInWindow)
         centerX = view.width/2f
         centerY = view.height / 2f + locationInWindow[1]
-        view.getLocationInWindow(locationInWindow)
         imageWidth = imageView.width
         imageHeight = imageView.height
 

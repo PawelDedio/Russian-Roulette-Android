@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.dedio.russianroulette.R
 import com.dedio.russianroulette.databinding.ViewRouletteBinding
 
-class RouletteView : ConstraintLayout {
+open class RouletteView : ConstraintLayout {
 
     private lateinit var binding: ViewRouletteBinding
     private lateinit var viewModel: RouletteViewModel
