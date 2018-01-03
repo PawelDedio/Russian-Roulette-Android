@@ -1,9 +1,9 @@
 package com.dedio.russianroulette.views.roulette
 
 import android.widget.ImageView
-import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.whenever
 import com.winterbe.expekt.should
+import io.mockk.every
+import io.mockk.mockk
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -18,8 +18,8 @@ class RouletteViewModelTest : Spek({
 
 
     beforeEachTest {
-        mockedView = mock()
-        mockedImageView = mock()
+        mockedView = mockk(relaxed = true)
+        mockedImageView = mockk(relaxed = true)
         viewModel = RouletteViewModel()
     }
 
@@ -31,10 +31,10 @@ class RouletteViewModelTest : Spek({
         }
 
         it("should set correct radius") {
-            whenever(mockedView.width).thenReturn(400)
-            whenever(mockedView.height).thenReturn(800)
-            whenever(mockedImageView.width).thenReturn(50)
-            whenever(mockedImageView.height).thenReturn(50)
+            every { (mockedView.width) } returns 400
+            every { (mockedView.height) } returns 800
+            every { (mockedImageView.width) } returns 50
+            every { (mockedImageView.height) } returns 50
 
             viewModel.initPosition(mockedView, mockedImageView)
 
