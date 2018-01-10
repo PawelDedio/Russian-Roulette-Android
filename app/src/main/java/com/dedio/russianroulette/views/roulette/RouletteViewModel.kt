@@ -1,6 +1,7 @@
 package com.dedio.russianroulette.views.roulette
 
-import android.support.animation.FlingAnimation
+import android.arch.lifecycle.ViewModel
+import android.support.animation.DynamicAnimation
 import android.support.animation.FloatValueHolder
 import android.util.Log
 import android.view.MotionEvent
@@ -11,7 +12,7 @@ import java.lang.Math.abs
 import java.lang.Math.pow
 import java.util.concurrent.TimeUnit
 
-class RouletteViewModel {
+class RouletteViewModel(val animator: RouletteAnimator) : ViewModel() {
 
     val state: BulletState = BulletState(0, 0f)
 
@@ -28,8 +29,6 @@ class RouletteViewModel {
     private var oldMoveAngle = 0f
     private var lastMoveTime: Long = 0
     private var lastMoveAngle = 0f
-
-    private var throwAnim: FlingAnimation? = null
 
 
     fun initPosition(view: RouletteView, imageView: ImageView) {
@@ -54,7 +53,7 @@ class RouletteViewModel {
 
         when(event.action) {
             ACTION_DOWN -> {
-                throwAnim?.cancel()
+                animator.cancel()
                 downTouchX = event.rawX
                 downTouchY = event.rawY
                 log("event: down, x: ${event.rawX} y: ${event.rawY}")
@@ -163,21 +162,20 @@ class RouletteViewModel {
 
     private fun animateThrow() {
         val holder = FloatValueHolder(state.angle)
-        val distance = abs(lastMoveAngle - oldMoveAngle)
+        val distance = Math.abs(lastMoveAngle - oldMoveAngle)
         val time: Float = (lastMoveTime - oldMoveTime).toFloat() / TimeUnit.SECONDS.toMillis(1)
         var velocity: Float = distance / time
         if (lastMoveAngle < oldMoveAngle) {
             velocity *= -1
         }
 
-        throwAnim = FlingAnimation(holder)
-                .setStartVelocity(velocity)
-                .setFriction(0.18f)
-                .addUpdateListener { dynamicAnimation, value, velocity ->
-                    state.angle = value % 360
-                }
-        throwAnim?.start()
+        val listener = DynamicAnimation.OnAnimationUpdateListener { dynamicAnimation: DynamicAnimation<out DynamicAnimation<*>>?, value: Float, vel: Float ->
+            state.angle = value % 360
+        }
+
+        animator.start(holder, velocity, listener)
     }
+
 
     private fun log(text: String) {
         Log.e("RouletteViewModel", text)

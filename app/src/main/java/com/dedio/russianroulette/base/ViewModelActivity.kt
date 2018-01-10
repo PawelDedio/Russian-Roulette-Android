@@ -1,12 +1,21 @@
 package com.dedio.russianroulette.base
 
 import android.databinding.ObservableField
+import android.os.Bundle
 import com.dedio.russianroulette.main.User
 
-abstract class ViewModelActivity<out ViewModel : BaseViewModel> : BaseActivity() {
+abstract class ViewModelActivity<ViewModel : BaseViewModel> : BaseActivity() {
 
-    private lateinit var viewModel: ViewModel
+    protected lateinit var viewModel: ViewModel
     lateinit var user: ObservableField<User>
 
-    abstract fun getViewModel() : ViewModel
+    abstract fun prepareActivityComponent()
+
+    abstract fun createViewModel() : ViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        prepareActivityComponent()
+        viewModel = createViewModel()
+    }
 }

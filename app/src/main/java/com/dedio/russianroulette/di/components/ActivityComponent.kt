@@ -4,6 +4,7 @@ import com.dedio.russianroulette.main.MainActivity
 import com.dedio.russianroulette.di.module.ActivityModule
 import com.dedio.russianroulette.di.module.ViewModelModule
 import com.dedio.russianroulette.di.scopes.ActivityScope
+import com.dedio.russianroulette.views.roulette.RouletteView
 import dagger.Subcomponent
 
 @ActivityScope
@@ -11,4 +12,6 @@ import dagger.Subcomponent
 interface ActivityComponent {
 
     fun inject(activity: MainActivity)
+
+    fun inject(view: RouletteView)
 }
