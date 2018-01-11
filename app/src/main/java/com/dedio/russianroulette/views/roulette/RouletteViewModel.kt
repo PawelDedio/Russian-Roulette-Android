@@ -56,7 +56,6 @@ class RouletteViewModel(val animator: RouletteAnimator) : ViewModel() {
                 animator.cancel()
                 downTouchX = event.rawX
                 downTouchY = event.rawY
-                log("event: down, x: ${event.rawX} y: ${event.rawY}")
             }
 
             ACTION_MOVE -> {
@@ -66,15 +65,10 @@ class RouletteViewModel(val animator: RouletteAnimator) : ViewModel() {
 
                 oldMoveTime = lastMoveTime
                 lastMoveTime = System.currentTimeMillis()
-                log("event: move, x: ${event.rawX} y: ${event.rawY} angle: ${state.angle}")
             }
 
             ACTION_UP -> {
-                log("event: up, x: ${event.rawX} y: ${event.rawY}")
-                if (System.currentTimeMillis() - lastMoveTime > 10) {
-                    log("event up: ############## without throw ##############")
-                } else {
-                    log("event up: ############## throw ##############")
+                if (System.currentTimeMillis() - lastMoveTime <= 10) {
                     animateThrow()
                 }
             }
@@ -174,10 +168,5 @@ class RouletteViewModel(val animator: RouletteAnimator) : ViewModel() {
         }
 
         animator.start(holder, velocity, listener)
-    }
-
-
-    private fun log(text: String) {
-        Log.e("RouletteViewModel", text)
     }
 }
